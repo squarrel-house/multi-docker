@@ -3,22 +3,22 @@ services:
   - docker
 
 before_install:
-  - docker build -t ab/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t squirrelhouse/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run ab/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t ab/multi-client ./client
-  - docker build -t ab/multi-nginx ./nginx
-  - docker build -t ab/multi-server ./server
-  - docker build -t ab/multi-worker ./worker
+  - docker build -t squirrelhouse/multi-client ./client
+  - docker build -t squirrelhouse/multi-nginx ./nginx
+  - docker build -t squirrelhouse/multi-server ./server
+  - docker build -t squirrelhouse/multi-worker ./worker
 
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
  
   # Take those images and push them to Docker Hub
-  - docker push ab/multi-client
-  - docker push ab/multi-nginx
-  - docker push ab/multi-server
-  - docker push ab/multi-worker
+  - docker push squirrelhouse/multi-client
+  - docker push squirrelhouse/multi-nginx
+  - docker push squirrelhouse/multi-server
+  - docker push squirrelhouse/multi-worker
