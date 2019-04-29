@@ -22,3 +22,16 @@ after_success:
   - docker push squirrelhouse/multi-nginx
   - docker push squirrelhouse/multi-server
   - docker push squirrelhouse/multi-worker
+
+  deploy:
+    provider: elasticbeanstalk
+    region: us-west-2
+    app: multi-docker
+    env: MultiDocker-env
+    bucket_name: elasticbeanstalk-us-west-2-423845497921
+    bucket_path: "ocker-multi
+    on:
+      branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: 
+      secure: "$AWS_SECRET_KEY"
